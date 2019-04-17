@@ -16,16 +16,25 @@ import java.awt.event.WindowListener;
 public class GUIStudy01 extends Frame implements WindowListener, ActionListener, ItemListener {
 
 	Button btn;
-	Label label1,label2,label3;
+	Label label1,label2,label3,label4;
 	Choice year,month,date;
 	Choice gu,dong;
+	Choice com,dept;
 	
 	String[] gu_str = {"송파구","강동구","강남구","강서구"};
-	//이차원배열을 사용하면 간편
+	//이차원배열을 사용하면 간편.
 	String[] dongOfSongpa = {"석촌동","가락동","삼전동","방이동","송파동"};
 	String[] dongOfGangdong = {"명일동","고덕동","상일동","길동","천호동"};
 	String[] dongOfGangnam = {"역삼동","개포동","청담동","삼성동","논현동"};
 	String[] dongOfGangsu = {"염창동","등촌동","화곡동","가양동","마곡동"};
+	
+	String[] com_name = {"자바 상사","코세아 상사","JSL 상사","오라클 상사"};
+	String[][] dept_name = {
+								{"자바영업부","자바경영부","자바개발부","자바총무부"},
+								{"코세아영업부","코세아경영부","코세아개발부","코세아총무부"},
+								{"JSL영업부","JSL경영부","JSL개발부","JSL총무부"},
+								{"오라클영업부","오라클경영부","오라클개발부","오라클총무부"}
+							};
 
 	public GUIStudy01(String title) {
 		
@@ -39,7 +48,8 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 		label1 = new Label("                                             ");
 		label2 = new Label("                                                                        ");
 		label3 = new Label("                                                                        ");
-		 
+		label4 = new Label("                                                                        ");
+		
 		//초이스를 채우는 작업은 별도의 메서드에서 한다.
 		year = new Choice();
 		month = new Choice();
@@ -54,12 +64,21 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 		
 		gu = new Choice();
 		dong = new Choice();
-		dong.add("                  ");
+		dong.add("-----------------");
 		
 		doChoiceAddr();
 		
 		gu.addItemListener(this);
 		dong.addItemListener(this);
+		
+		com = new Choice();
+		dept = new Choice();
+		dept.add("-----------------");
+		
+		doChoiceComAndDept();
+		
+		com.addItemListener(this);
+		dept.addItemListener(this);
 		
 		this.add(btn);
 		this.add(label1);
@@ -67,6 +86,8 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 		this.add(label2);
 		this.add(gu);this.add(dong);
 		this.add(label3);
+		this.add(com);this.add(dept);
+		this.add(label4);
 		
 		
 		this.addWindowListener(this);
@@ -74,6 +95,12 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 		this.setSize(450,200);
 		this.setVisible(true);
 		
+	}
+	
+	void doChoiceComAndDept() {
+		for(int i = 0; i < com_name.length; i++) {
+			com.add(com_name[i]);
+		}
 	}
 	
 	void doChoiceAddr() {
@@ -174,17 +201,15 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 				}
 			}
 			
-		}else {//일을 누른 경우
+		}else if(e.getSource() == date) {//일을 누른 경우
 			//result에 선택한 년,월,일을 출력한다.
 			String y = year.getSelectedItem();
 			String m = month.getSelectedItem();
 			String d = date.getSelectedItem();
 			String birth = "당신의 생년월일은 "+y+"년"+m+"월"+d+"일입니다.";
 			label2.setText(birth);
-		}
-		//이 메서드에서 할일 : 월에 따라서 날짜를 각각 date에 넣는다.
-		
-		if(e.getSource() == gu) {
+		}//이 메서드에서 할일 : 월에 따라서 날짜를 각각 date에 넣는다.
+		else if(e.getSource() == gu) {
 			if(gu.getSelectedItem().equals("송파구")) {
 				dong.removeAll();
 				for(int i = 0; i < dongOfSongpa.length; i++) {
@@ -211,6 +236,18 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 			String dongName = dong.getSelectedItem();
 			String address = "선택하신 주소는 "+guName+" "+dongName+" 입니다.";
 			label3.setText(address);
+		}
+		else if(e.getSource() == com) {
+			dept.removeAll();
+			int index = com.getSelectedIndex();
+			for(int i = 0; i < dept_name[index].length; i++) {
+				dept.add(dept_name[index][i]);
+			}
+		}else if(e.getSource() == dept){
+			String comName = com.getSelectedItem();
+			String deptName = dept.getSelectedItem();
+			String comAndDept = comName + "의 " + deptName + " 소속입니다.";
+			label4.setText(comAndDept);
 		}
 	}
 
