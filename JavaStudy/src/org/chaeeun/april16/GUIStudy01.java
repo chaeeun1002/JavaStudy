@@ -21,6 +21,7 @@ public class GUIStudy01 extends Frame implements WindowListener, ActionListener,
 	Choice gu,dong;
 	
 	String[] gu_str = {"송파구","강동구","강남구","강서구"};
+	//이차원배열을 사용하면 간편
 	String[] dongOfSongpa = {"석촌동","가락동","삼전동","방이동","송파동"};
 	String[] dongOfGangdong = {"명일동","고덕동","상일동","길동","천호동"};
 	String[] dongOfGangnam = {"역삼동","개포동","청담동","삼성동","논현동"};
