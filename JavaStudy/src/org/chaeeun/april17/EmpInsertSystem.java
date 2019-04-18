@@ -13,6 +13,8 @@ import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -20,7 +22,7 @@ import java.awt.event.WindowListener;
 //배치관리자 : GridLayout(8,1)
 //컴포넌트 : Panel(8), Label(7), TextField(3), Choice(2), Checkbox(6), CheckboxGroup(1), Button(2)
 
-public class EmpInsertSystem extends Frame implements WindowListener,ActionListener{
+public class EmpInsertSystem extends Frame implements WindowListener,ActionListener,ItemListener{
 	
 	Panel[] panel; Label[] label; TextField[] text;
 	Choice[] choices; Checkbox[] check; CheckboxGroup group; Button[] btn;
@@ -68,16 +70,58 @@ public class EmpInsertSystem extends Frame implements WindowListener,ActionListe
 	public void actionPerformed(ActionEvent e) {
 		//버튼을 눌렀을 경우, 자동으로 호출되는 메서드
 		//버튼이 두 개 이므로, 어떤 버튼을 눌렀는지 찾아야한다.
-		if(e.getSource() == btn[0]) {
+		if(e.getSource() == btn[0]) {//등록버튼
 			String id = text[0].getText();//사번의 내용을 읽어서 id에 넣는다.
 			String name = text[1].getText();
 			String salary = text[2].getText();
-			String info = "사번: "+id+",이름: "+name+",월급: "+salary ;
-			str1 = new Label(info);
-		}else if(e.getSource() == btn[1]) {
+			String info = "사번: "+id+" ,이름: "+name+" ,월급: "+salary ;
+			str1 = new Label(info);//레이블생성	
+			panel[7].add(str1);//패널에 레이블 붙여줌
+		}else if(e.getSource() == btn[1]) {//취소버튼
 			text[0].setText("");
 			text[1].setText("");
 			text[2].setText("");
+			str1.setText("");
+		}
+	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		//성별을 누르거나 취미를 선택할 때 마다 자동호출
+		//라디오버튼은 둘 중 하나만(성별)
+		if(check[0].getState()) {//남자
+			//체크박스의 선택유무를 확인하는 방법 : getState()
+			//체크되어있으면 true, 안되어있으면 false 리턴
+			System.out.println("M");
+		}else if(check[1].getState()) {//여자
+			System.out.println("F");
+		}
+		//체크박스는 다중선택(취미)
+		if(check[2].getState()) {//게임을 클릭한 경우
+			System.out.println("Game");
+		}
+		if(check[3].getState()) {//여행을 클릭한 경우
+			System.out.println("Travel");
+		}
+		if(check[4].getState()) {//독서를 클릭한 경우
+			System.out.println("Reading");
+		}
+		if(check[5].getState()) {//영화를 클릭한 경우
+			System.out.println("Movie");
+		}
+		if(check[6].getState()) {//노래를 클릭한 경우
+			System.out.println("Sing");
+		}
+		if(check[7].getState()) {//운동을 클릭한 경우
+			System.out.println("Sports");
+		}
+		if(e.getSource() == choices[0]) {
+			String dept = choices[0].getSelectedItem();
+			System.out.println(dept);
+		}
+		if(e.getSource() == choices[1]) {
+			String grade = choices[1].getSelectedItem();
+			System.out.println(grade);
 		}
 	}
 	EmpInsertSystem(String str){
@@ -117,6 +161,7 @@ public class EmpInsertSystem extends Frame implements WindowListener,ActionListe
 				}
 				break;
 			}
+			choices[i].addItemListener(this);
 		}
 		
 		check = new Checkbox[8];
@@ -127,6 +172,8 @@ public class EmpInsertSystem extends Frame implements WindowListener,ActionListe
 			}else {
 				check[i] = new Checkbox(gender_hobby[i],group,false);
 			}
+			check[i].addItemListener(this);
+
 		}
 		
 		
@@ -144,14 +191,14 @@ public class EmpInsertSystem extends Frame implements WindowListener,ActionListe
 		panel[5].add(check[0]);panel[5].add(check[1]);
 		panel[6].add(check[2]);panel[6].add(check[3]);panel[6].add(check[4]);
 		panel[6].add(check[5]);panel[6].add(check[6]);panel[6].add(check[7]);
-		panel[7].add(btn[0]);panel[7].add(btn[1]);
-		panel[8].add(str1);
+		panel[8].add(btn[0]);panel[8].add(btn[1]);
+		
 		
 		Color backColor = new Color(255,200,144);
 		
 		this.addWindowListener(this);
 		this.setBackground(backColor);
-		this.setSize(400,400);
+		this.setSize(400,500);
 		this.setVisible(true);
 	}
 	public static void main(String[] args) {
