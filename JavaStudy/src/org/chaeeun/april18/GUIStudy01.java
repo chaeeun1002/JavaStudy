@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class GUIStudy01 extends Frame implements WindowListener,ActionListener{
+public class GUIStudy01 extends Panel implements WindowListener,ActionListener{
 	
 	Panel [] panels;
 	Checkbox[] drinks;
@@ -168,9 +168,7 @@ public class GUIStudy01 extends Frame implements WindowListener,ActionListener{
 		panels[6].add(btns[0]);panels[6].add(btns[1]);//일곱번째 패널에 버튼 2개를 붙임
 	}
 	
-	public GUIStudy01(String str) {
-		
-		super(str);
+	public GUIStudy01() {
 		
 		this.setLayout(new GridLayout(7,1));
 		
@@ -180,16 +178,16 @@ public class GUIStudy01 extends Frame implements WindowListener,ActionListener{
 			this.add(panels[i]);
 		}
 		
-		this.addWindowListener(this);
+		//this.addWindowListener(this);
 		
-		this.setSize(300,400);
-		
-		this.setVisible(true);
+//		this.setSize(300,400);
+//		
+//		this.setVisible(true);
 		
 	}
 	
-	public static void main(String[] args) {
-		new GUIStudy01("음료 주문 시스템");
-	}
+//	public static void main(String[] args) {
+//		new GUIStudy01("음료 주문 시스템");
+//	}
 
 }

@@ -5,11 +5,17 @@ import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+
+
 
 public class CardLayoutStudy01 extends Frame implements WindowListener,ActionListener{
 	
@@ -19,6 +25,10 @@ public class CardLayoutStudy01 extends Frame implements WindowListener,ActionLis
 	Panel card1,card2,card3,card4,card5;//slide에 붙일 패널들
 	CardLayout card;//카드레이아웃용 변수
 
+	MenuBar mb;
+	Menu menu;
+	MenuItem game,order;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {//버튼을 눌렀을 때 자동호출
 		Object obj = e.getSource();
@@ -37,6 +47,12 @@ public class CardLayoutStudy01 extends Frame implements WindowListener,ActionLis
 		}else if(obj==last) {//네번째 버튼을 누른경우
 			card.last(slide);
 			//카드레이아웃의 last메서드가 slide에 붙어있는 패널 중 마지막 패널로 이동한다.
+		}else if(obj==game) {
+			//윈도우에 첫번째 패널(이름이 "1")이 나와야 한다.
+			card.show(slide, "1");
+		}else if(obj==order) {
+			//윈도우에 두번째 패널(이름이 "2")이 나와야 한다.
+			card.show(slide, "2");
 		}
 	}
 	
@@ -71,8 +87,9 @@ public class CardLayoutStudy01 extends Frame implements WindowListener,ActionLis
 		doIt();
 		this.add("Center",slide);
 		this.add("South",buttons);
+		this.setMenuBar(mb);//메뉴바를 윈도우에 붙여준다.
 		this.addWindowListener(this);
-		this.setSize(300,200);
+		this.setSize(500,400);
 		this.setVisible(true);
 	}
 	
@@ -97,8 +114,11 @@ public class CardLayoutStudy01 extends Frame implements WindowListener,ActionLis
 		slide.setLayout(card);//패널의 배치관리자를 카드레이아웃으로 설정
 		
 		//지금 부터 slide에 들어갈 패널 다섯개 생성
-		card1 = new Panel();card2 = new Panel();card3 = new Panel();
-		card4 = new Panel();card5 = new Panel();
+		card1 = new GUIStudy01();//다형성
+		card2 = new GaBaBo();//다형성
+		card3 = new Panel();
+		card4 = new Panel();
+		card5 = new Panel();
 		
 		//패널은 눈에 안보이므로 배경색을 지정해서 색을 보이게 한다.
 		card1.setBackground(new Color(255,255,180));
@@ -111,6 +131,16 @@ public class CardLayoutStudy01 extends Frame implements WindowListener,ActionLis
 		//카드레이아웃에 컴포넌트를 붙일 때에는 이름을 지정해야 한다.
 		slide.add(card1,"1");slide.add(card2,"2");slide.add(card3,"3");
 		slide.add(card4,"4");slide.add(card5,"5");//두번째 인자가 이름
+		
+		mb = new MenuBar();
+		menu = new Menu("선택");
+		game = new MenuItem("가위바위보게임");
+		game.addActionListener(this);
+		order = new MenuItem("음료수주문");
+		order.addActionListener(this);
+		
+		menu.add(game);menu.add(order);//메뉴 아이템을 메뉴에 붙인다.
+		mb.add(menu);//메뉴를 메뉴바에 붙인다.
 	}
 	
 	public static void main(String[] args) {

@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class GaBaBo extends Frame implements WindowListener,ActionListener{
+public class GaBaBo extends Panel implements WindowListener,ActionListener{
 	
 	Checkbox[] checks;
 	CheckboxGroup group;
@@ -98,20 +98,20 @@ public class GaBaBo extends Frame implements WindowListener,ActionListener{
 		panels[2].add(ok);
 	}
 	
-	public GaBaBo(String str) {
-		super(str);
+	public GaBaBo() {
+		
 		this.setLayout(new GridLayout(3,1));
 		doIt();
 		for(int i = 0; i < 3; i++) {
 			this.add(panels[i]);
 		}
-		this.addWindowListener(this);
-		this.setSize(500,200);
-		this.setVisible(true);
+//		this.addWindowListener(this);
+//		this.setSize(500,200);
+//		this.setVisible(true);
 	}
 	
-	public static void main(String[] args) {
-		new GaBaBo("가위바위보");
-	}
+//	public static void main(String[] args) {
+//		new GaBaBo("가위바위보");
+//	}
 
 }
