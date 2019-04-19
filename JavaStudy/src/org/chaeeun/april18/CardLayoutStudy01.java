@@ -6,31 +6,60 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class CardLayoutStudy01 extends Frame implements WindowListener{
+public class CardLayoutStudy01 extends Frame implements WindowListener,ActionListener{
 	
 	Button first,prev,next,last;
 	Panel buttons;//버튼을 붙일 패널
 	Panel slide;//카드레이아웃을 사용할 패널
 	Panel card1,card2,card3,card4,card5;//slide에 붙일 패널들
 	CardLayout card;//카드레이아웃용 변수
+
+	@Override
+	public void actionPerformed(ActionEvent e) {//버튼을 눌렀을 때 자동호출
+		Object obj = e.getSource();
+		//Object : Action이벤트는 버튼에서만 발생 하는 것이 아님. 
+		//모든 객체를 리턴 받아야 하기 때문에 모든 객체의 조상클래스인 Object를 쓰거나 형변환이 필요.
+		//형변환을 할 경우 Button obj = (Button)e.getSource();
+		if(obj==first) {//첫번째 버튼을 누른 경우
+			card.first(slide);
+			//카드레이아웃의 first메서드가 slide에 붙어있는 패널 중 첫번째 패널로 이동한다.
+		}else if(obj==prev) {//두번째 버튼을 누른경우
+			card.previous(slide);
+			//카드레이아웃의 next메서드가 slide에 붙어있는 패널 중 이전 패널로 이동한다.
+		}else if(obj==next) {//세번째 버튼을 누른경우
+			card.next(slide);
+			//카드레이아웃의 previous메서드가 slide에 붙어있는 패널 중 다음 패널로 이동한다. 
+		}else if(obj==last) {//네번째 버튼을 누른경우
+			card.last(slide);
+			//카드레이아웃의 last메서드가 slide에 붙어있는 패널 중 마지막 패널로 이동한다.
+		}
+	}
 	
 	@Override
 	public void windowOpened(WindowEvent e) {}
+	
 	@Override
 	public void windowClosing(WindowEvent e) {
 		System.exit(0);
 	}
+	
 	@Override
 	public void windowClosed(WindowEvent e) {}
+	
 	@Override
 	public void windowIconified(WindowEvent e) {}
+	
 	@Override
 	public void windowDeiconified(WindowEvent e) {}
+	
 	@Override
 	public void windowActivated(WindowEvent e) {}
+	
 	@Override
 	public void windowDeactivated(WindowEvent e) {}
 	
@@ -40,6 +69,8 @@ public class CardLayoutStudy01 extends Frame implements WindowListener{
 		//윈도우에 기본배치관리자는 보더레이아웃이므로, 보더레이아웃을 사용하는 경우 이부분을 생략해도 된다.
 		//Panel의 기본배치관리자는 FlowLayout이므로, 플로우레이아웃을 사용한는 경우 패널에 배치관리자 설정을 생략.
 		doIt();
+		this.add("Center",slide);
+		this.add("South",buttons);
 		this.addWindowListener(this);
 		this.setSize(300,200);
 		this.setVisible(true);
@@ -49,9 +80,13 @@ public class CardLayoutStudy01 extends Frame implements WindowListener{
 		card = new CardLayout();//카드레이아웃 생성
 		
 		first = new Button("맨처음");
+		first.addActionListener(this);
 		prev = new Button("이전");
+		prev.addActionListener(this);
 		next = new Button("다음");
+		next.addActionListener(this);
 		last = new Button("마지막");
+		last.addActionListener(this);
 		
 		buttons = new Panel();//버튼을 담을 패널 생성
 		
