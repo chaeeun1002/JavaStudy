@@ -40,6 +40,8 @@ public class MyLoginEvent implements ActionListener {
 				login.id_txt.setText("");
 				login.pwd_txt.setText(" ");
 				login.pwd_txt.setText("");
+				//로그아웃시 로그인 화면에 계정과 비밀번호가 남겨져 있으면 안되기 때문에,
+				//로그인 성공 후 과일 소개 화면으로 넘어가면서 로그인 화면에 입력되어 있는 계정 및 비밀번호는 지워준다.
 			}
 			
 		}else if(obj == login.cancel) {//다시입력 버튼을 누른 경우
