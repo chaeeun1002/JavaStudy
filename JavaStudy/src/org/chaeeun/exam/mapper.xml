@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loginmapper">
+	<select id="SelectIdAndPwd" parameterType="chaeeun.UserIdPwd" resultType="chaeeun.ManagerInfo">
+		select * from manager_info
+		where manager_id = #{id} and manager_pwd = #{pwd}
+	</select>
+	<!--parameterType : 조건 대상자를 불러올 객체, resultType : 쿼리문이 실행 된 결과를 받을 객체-->
+	<insert id="insertIntoItemInfo" parameterType="chaeeun.ItemInfo">
+		insert into item_info values (#{code},#{name},#{price},#{info},#{origin})
+	</insert>
+	<select id="SelectItemCode" parameterType="String" resultType = "chaeeun.ItemInfo">
+		select * from item_info where code = #{code}
+	</select>
+	<delete id="deleteItemByCode" parameterType="String">
+		delete from item_info where code = #{code}
+	</delete>
+	<update id="updateItemByCode" parameterType="chaeeun.ItemInfo">
+		update item_info set name = #{name}, price = #{price}, info = #{info}, origin = #{origin}
+		where code = #{code}
+	</update>
+	<insert id="insertIntoEmpInfo" parameterType="chaeeun.EmpInfo">
+		insert into emp_info values(#{emp_id},#{emp_name},#{emp_dpt},#{emp_gen},#{emp_addr},#{emp_date})
+	</insert>
+	<select id="SelectEmpId" parameterType="String" resultType = "chaeeun.EmpInfo">
+		select * from emp_info where emp_id = #{emp_id}
+	</select>
+</mapper>
