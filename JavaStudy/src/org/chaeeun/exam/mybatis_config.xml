@@ -14,6 +14,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="chaeeun/mapper.xml"/>
+		<mapper resource="org.chaeeun.exam/mapper.xml"/>
 	</mappers>
 </configuration>

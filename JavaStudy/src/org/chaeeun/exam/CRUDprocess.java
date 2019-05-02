@@ -17,7 +17,7 @@ public class CRUDprocess {
 	
 /////////////////////SqlSession을 만드는 메서드//////////////////////
 	private SqlSession getSession() {
-		String path = "chaeeun/mybatis_config.xml";//환경설정파일의 경로
+		String path = "org.chaeeun.exam/mybatis_config.xml";//환경설정파일의 경로
 		InputStream is = null;//파일의 내용을 읽을 객체
 		//파일프로그램(네트워크,DB연동,스레드)은 반드시 예외처리를 해야한다.
 		try {

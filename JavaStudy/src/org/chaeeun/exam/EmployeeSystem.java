@@ -126,15 +126,19 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 				text[2].setText(info.getEmp_addr());
 				
 				String hire_date = info.getEmp_date();
-				int year = Integer.parseInt(hire_date.substring(0, 4));
-				System.out.println(year);
-				int month = Integer.parseInt(hire_date.substring(5,7));
-				System.out.println(month);
-				int date = Integer.parseInt(hire_date.substring(8,10));
-				System.out.println(date);
-				choices[1].select(2019-year);
-				choices[2].select(month - 1);
-				choices[3].select(date);
+				String[] hire = hire_date.split("-");
+				choices[1].select(hire[0]);
+				choices[2].select(hire[1]);
+				choices[3].select(hire[2]);
+//				int year = Integer.parseInt(hire_date.substring(0, 4));
+//				System.out.println(year);
+//				int month = Integer.parseInt(hire_date.substring(5,7));
+//				System.out.println(month);
+//				int date = Integer.parseInt(hire_date.substring(8,10));
+//				System.out.println(date);
+//				choices[1].select(2019-year);
+//				choices[2].select(month - 1);
+//				choices[3].select(date);
 			}
 		}else if(obj == btns[4]) {//지우기버튼
 			for(int i = 0; i < text.length; i++) {
