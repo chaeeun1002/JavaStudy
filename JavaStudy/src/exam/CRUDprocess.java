@@ -17,7 +17,7 @@ public class CRUDprocess {
 	
 /////////////////////SqlSession을 만드는 메서드//////////////////////
 	private SqlSession getSession() {
-		String path = "org.chaeeun.exam/mybatis_config.xml";//환경설정파일의 경로
+		String path = "exam/mybatis_config.xml";//환경설정파일의 경로
 		InputStream is = null;//파일의 내용을 읽을 객체
 		//파일프로그램(네트워크,DB연동,스레드)은 반드시 예외처리를 해야한다.
 		try {
@@ -100,6 +100,17 @@ public class CRUDprocess {
 		}
 	}
 	
+	public Outputs selectOutputs() {
+		SqlSession s = getSession();
+		Outputs output = null;
+		try {
+			output = s.selectOne("loginmapper.selectOutputs");
+			return output;
+		}finally {
+			s.close();
+		}
+	}
+	
 	public Integer deleteItemByCode(String code) {
 		SqlSession s = getSession();
 		int result = -1;
@@ -115,12 +126,41 @@ public class CRUDprocess {
 			s.close();
 		}
 	}
-	
+	public Integer deleteEmpInfo(String id) {
+		SqlSession s = getSession();
+		int result = -1;
+		try {
+			result = s.delete("loginmapper.deleteEmpInfo", id);
+			if(result > 0) {
+				s.commit();
+			}else {
+				s.rollback();
+			}
+			return result;
+		}finally {
+			s.close();
+		}
+	}
 	public Integer updateItemByCode(ItemInfo info) {
 		SqlSession s = getSession();
 		int result = 0;
 		try {
 			result = s.update("loginmapper.updateItemByCode", info);
+			if(result > 0) {
+				s.commit();
+			}else {
+				s.rollback();
+			}
+			return result;
+		}finally {
+			s.close();
+		}
+	}
+	public Integer updateEmpInfoById(EmpInfo info) {
+		SqlSession s = getSession();
+		int result = 0;
+		try {
+			result = s.update("loginmapper.updateEmpInfoById",info);
 			if(result > 0) {
 				s.commit();
 			}else {

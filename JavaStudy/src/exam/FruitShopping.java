@@ -103,12 +103,12 @@ public class FruitShopping extends Panel {
 			items_intro[i].setLayout(new GridLayout(1,2));//1행 2열
 			
 			switch(i) {//이미지를 가지고 있는 패널 생성
-			case 0:items[i] = new FruitImage("src\\chaeeun\\fruit\\grape.jpg");break;
-			case 1:items[i] = new FruitImage("src\\chaeeun\\fruit\\kiwi.jpg");break;
-			case 2:items[i] = new FruitImage("src\\chaeeun\\fruit\\lemon.jpg");break;
-			case 3:items[i] = new FruitImage("src\\chaeeun\\fruit\\orange.jpg");break;
-			case 4:items[i] = new FruitImage("src\\chaeeun\\fruit\\strawberry.jpg");break;
-			case 5:items[i] = new FruitImage("src\\chaeeun\\fruit\\tangerine.jpg");break;
+			case 0:items[i] = new FruitImage("src\\exam\\fruit\\grape.jpg");break;
+			case 1:items[i] = new FruitImage("src\\exam\\fruit\\kiwi.jpg");break;
+			case 2:items[i] = new FruitImage("src\\exam\\fruit\\lemon.jpg");break;
+			case 3:items[i] = new FruitImage("src\\exam\\fruit\\orange.jpg");break;
+			case 4:items[i] = new FruitImage("src\\exam\\fruit\\strawberry.jpg");break;
+			case 5:items[i] = new FruitImage("src\\exam\\fruit\\tangerine.jpg");break;
 			}
 			
 			desc[i] = new Panel();//설명을 가지고 있는 패널 생성

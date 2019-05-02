@@ -17,7 +17,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JOptionPane;
 
-public class EmployeeSystem extends Frame implements ItemListener,ActionListener{
+public class EmployeeSystem extends Panel implements ItemListener,ActionListener{
 	
 	Label[] labels;
 	TextField[] text;
@@ -63,14 +63,8 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 					String hire_date = "";
 					String year = choices[1].getSelectedItem();
 					String month = choices[2].getSelectedItem();
-					if(Integer.parseInt(month) < 10) {
-						month = "0"+month;
-					}
 					String date = choices[3].getSelectedItem();
-					if(Integer.parseInt(date) < 10) {
-						date = "0"+date;
-					}
-					hire_date = year+"-"+month+"-"+date;
+					hire_date = year+"/"+month+"/"+date;
 					
 					EmpInfo empinfo = new EmpInfo();
 					empinfo.setEmp_id(id);
@@ -91,9 +85,66 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 			}
 			
 		}else if(obj == btns[1]) {//삭제버튼
-			
+			String[] str = {"삭 제","취 소"};
+			int select = JOptionPane.showOptionDialog(this, "삭제하시겠습니까?", "삭 제", JOptionPane.YES_NO_OPTION, 
+					JOptionPane.INFORMATION_MESSAGE, null, str, str[0]);
+			//Yes와 No 버튼이 있는 다이얼로그 생성
+			if(select == JOptionPane.YES_OPTION) {
+				String id = text[0].getText();
+				if(id.equals("")) {
+					JOptionPane.showMessageDialog(this, "사원번호를 입력해주세요");
+				}else {
+					CRUDprocess crud = new CRUDprocess();
+					int result = crud.deleteEmpInfo(id);
+					if(result > 0) {
+						JOptionPane.showMessageDialog(this, "사원 삭제가 정상적으로 완료되었습니다.");
+					}else {
+						JOptionPane.showMessageDialog(this, "사원 삭제과정에서 오류가 발생하였습니다.");
+					}
+				}
+			}
 		}else if(obj == btns[2]) {//변경버튼
-			
+			String[] str = {"변 경","취 소"};
+			int select = JOptionPane.showOptionDialog(this, "변경하시겠습니까?", "변 경", JOptionPane.YES_NO_OPTION, 
+					JOptionPane.INFORMATION_MESSAGE, null, str, str[0]);
+			//Yes와 No 버튼이 있는 다이얼로그 생성
+			if(select == JOptionPane.YES_OPTION) {
+				String id = text[0].getText();
+				if(id.equals("")) {
+					JOptionPane.showMessageDialog(this, "사원번호를 입력해주세요");
+				}else {
+					CRUDprocess crud = new CRUDprocess();
+					String name = text[1].getText();
+					String dpt = choices[0].getSelectedItem();
+					String gender = "";
+					if(genders[0].getState()) {
+						gender = "남자";
+					}else if(genders[1].getState()) {
+						gender = "여자";
+					}
+					String addr = text[2].getText();
+					String hire_date = "";
+					String year = choices[1].getSelectedItem();
+					String month = choices[2].getSelectedItem();
+					String date = choices[3].getSelectedItem();
+					hire_date = year+"/"+month+"/"+date;
+					
+					EmpInfo empinfo = new EmpInfo();
+					empinfo.setEmp_id(id);
+					empinfo.setEmp_name(name);
+					empinfo.setEmp_dpt(dpt);
+					empinfo.setEmp_gen(gender);
+					empinfo.setEmp_addr(addr);
+					empinfo.setEmp_date(hire_date);
+					
+					int result = crud.updateEmpInfoById(empinfo);
+					if(result > 0) {
+						JOptionPane.showMessageDialog(this, "사원정보 변경이 정상적으로 완료되었습니다.");
+					}else {
+						JOptionPane.showMessageDialog(this, "사원정보 변경과정에서 오류가 발생하였습니다.");
+					}
+				}
+			}
 		}else if(obj == btns[3]) {//조회버튼
 			String id = text[0].getText();
 			CRUDprocess crud = new CRUDprocess();
@@ -124,21 +175,11 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 					genders[1].setState(true);
 				}
 				text[2].setText(info.getEmp_addr());
-				
 				String hire_date = info.getEmp_date();
-				String[] hire = hire_date.split("-");
+				String[] hire = hire_date.split("/");
 				choices[1].select(hire[0]);
 				choices[2].select(hire[1]);
 				choices[3].select(hire[2]);
-//				int year = Integer.parseInt(hire_date.substring(0, 4));
-//				System.out.println(year);
-//				int month = Integer.parseInt(hire_date.substring(5,7));
-//				System.out.println(month);
-//				int date = Integer.parseInt(hire_date.substring(8,10));
-//				System.out.println(date);
-//				choices[1].select(2019-year);
-//				choices[2].select(month - 1);
-//				choices[3].select(date);
 			}
 		}else if(obj == btns[4]) {//지우기버튼
 			for(int i = 0; i < text.length; i++) {
@@ -150,6 +191,9 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 //			}
 			genders[0].setState(true);
 			genders[1].setState(false);
+			choices[1].select(0);
+			choices[2].select(0);
+			choices[3].select(0);
 		}else if(obj == btns[5]) {//달력버튼
 			
 		}
@@ -251,8 +295,8 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 		panels[8].add(new Label());
 	}
 	
-	public EmployeeSystem(String str) {
-		super(str);
+	public EmployeeSystem() {
+//		super(str);
 		this.setLayout(new GridLayout(9,1));
 		makeLabel();
 		makeButton();
@@ -263,13 +307,13 @@ public class EmployeeSystem extends Frame implements ItemListener,ActionListener
 		for(int i = 0; i < panels.length; i++) {
 			this.add(panels[i]);
 		}
-		this.addWindowListener(new LoginSystemExit());
+//		this.addWindowListener(new LoginSystemExit());
 		this.setSize(800, 500);
 		this.setVisible(true);
 		
-	}
-	public static void main(String[] args) {
-		new EmployeeSystem("사원 정보 시스템");
-	}
+	} 
+//	public static void main(String[] args) {
+//		new EmployeeSystem("사원 정보 시스템");
+//	}
 
 }

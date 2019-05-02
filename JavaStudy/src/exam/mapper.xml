@@ -2,28 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="loginmapper">
-	<select id="SelectIdAndPwd" parameterType="org.chaeeun.exam.UserIdPwd" resultType="org.chaeeun.exam.ManagerInfo">
+	<select id="SelectIdAndPwd" parameterType="exam.UserIdPwd" resultType="exam.ManagerInfo">
 		select * from manager_info
 		where manager_id = #{id} and manager_pwd = #{pwd}
 	</select>
 	<!--parameterType : 조건 대상자를 불러올 객체, resultType : 쿼리문이 실행 된 결과를 받을 객체-->
-	<insert id="insertIntoItemInfo" parameterType="org.chaeeun.exam.ItemInfo">
+	<insert id="insertIntoItemInfo" parameterType="exam.ItemInfo">
 		insert into item_info values (#{code},#{name},#{price},#{info},#{origin})
 	</insert>
-	<select id="SelectItemCode" parameterType="String" resultType = "org.chaeeun.exam.ItemInfo">
+	<select id="SelectItemCode" parameterType="String" resultType = "exam.ItemInfo">
 		select * from item_info where code = #{code}
 	</select>
 	<delete id="deleteItemByCode" parameterType="String">
 		delete from item_info where code = #{code}
 	</delete>
-	<update id="updateItemByCode" parameterType="org.chaeeun.exam.ItemInfo">
+	<update id="updateItemByCode" parameterType="exam.ItemInfo">
 		update item_info set name = #{name}, price = #{price}, info = #{info}, origin = #{origin}
 		where code = #{code}
 	</update>
-	<insert id="insertIntoEmpInfo" parameterType="org.chaeeun.exam.EmpInfo">
+	<insert id="insertIntoEmpInfo" parameterType="exam.EmpInfo">
 		insert into emp_info values(#{emp_id},#{emp_name},#{emp_dpt},#{emp_gen},#{emp_addr},#{emp_date})
 	</insert>
-	<select id="SelectEmpId" parameterType="String" resultType = "org.chaeeun.exam.EmpInfo">
+	<select id="SelectEmpId" parameterType="String" resultType = "exam.EmpInfo">
 		select * from emp_info where emp_id = #{emp_id}
+	</select>
+	<delete id="deleteEmpInfo" parameterType="String">
+		delete from emp_info where emp_id = #{emp_id}
+	</delete>
+	<update id="updateEmpInfoById" parameterType="exam.EmpInfo">
+		update emp_info set emp_name = #{emp_name}, emp_dpt = #{emp_dpt}, emp_gen = #{emp_gen}, emp_addr = #{emp_addr}, emp_date = #{emp_date}
+		where emp_id = #{emp_id}
+	</update>
+	<select id="selectOutputs" resultType="exam.Outputs">
+		select * from outputs
 	</select>
 </mapper>

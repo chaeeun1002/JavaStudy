@@ -51,6 +51,8 @@ public class MyLoginEvent implements ActionListener {
 				total.menu_drink.setEnabled(true);
 				total.menu_item.setEnabled(true);
 				total.menu_home.setEnabled(true);
+				total.menu_emp.setEnabled(true);
+				total.menu_chart.setEnabled(true);
 			}
 			
 		}else if(obj == login.cancel) {//다시입력 버튼을 누른 경우
