@@ -1,4 +1,4 @@
-package org.chaeeun.exam;
+package exam;
 
 import java.awt.Button;
 import java.awt.Checkbox;

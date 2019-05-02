@@ -1,4 +1,4 @@
-package org.chaeeun.exam;
+package exam;
 
 public class ItemInfo {//모델객체
 	private String code;

@@ -1,4 +1,4 @@
-package org.chaeeun.exam;
+package exam;
 
 public class EmpInfo {
 	private String emp_id;

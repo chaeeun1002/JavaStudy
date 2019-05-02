@@ -1,4 +1,4 @@
-package org.chaeeun.exam;
+package exam;
 
 //DB연동에 사용하는 변수는 은닉필수(private)
 

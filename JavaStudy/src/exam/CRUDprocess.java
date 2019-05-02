@@ -1,4 +1,4 @@
-package org.chaeeun.exam;
+package exam;
 
 import java.io.InputStream;
 
