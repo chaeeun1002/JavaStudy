@@ -18,7 +18,7 @@ public class MyLoginEvent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if(obj == login.login) {//로그인 버튼을 누른 경우
+		if(obj == login.login || obj == login.pwd_txt) {//로그인 버튼을 누르거나, 암호를 입력하고 엔터를 누른 경우
 			//DB에 접속한 후, manager_info 테이블에서 계정과 암호를 찾는다.
 			//찾은 계정과 암호를 비교한다.
 			String id = login.id_txt.getText();//입력한 ID를 id에 저장

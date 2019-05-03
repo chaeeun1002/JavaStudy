@@ -46,6 +46,7 @@ public class LoginSystem extends Panel {
 		pwd_txt = new TextField(20);
 		pwd_txt.setFont(font);
 		pwd_txt.setEchoCharacter('*');//입력되는 문자 대신 * 출력
+		pwd_txt.addActionListener(new MyLoginEvent(this,total));
 		
 		pan_id = new Panel(new GridLayout(1,2));
 		pan_id.add(id_info);
