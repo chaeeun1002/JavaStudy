@@ -1,11 +1,11 @@
 package exam;
 
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
@@ -36,7 +36,6 @@ public class ItemSystem extends Panel implements ActionListener{
 	
 	TotalSystem total;
 
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
@@ -68,6 +67,7 @@ public class ItemSystem extends Panel implements ActionListener{
 					}else if(madeIn[1].getState()) {
 						origin = "other country";
 					}
+					String image = SaveActionListener.path;
 					
 					ItemInfo iteminfo = new ItemInfo();//모델 객체 생성
 					iteminfo.setCode(code);
@@ -75,6 +75,7 @@ public class ItemSystem extends Panel implements ActionListener{
 					iteminfo.setPrice(Integer.parseInt(price));
 					iteminfo.setInfo(info);
 					iteminfo.setOrigin(origin);
+					iteminfo.setImage(image);
 					
 					int result = crud.insertIntoItemInfo(iteminfo);
 					
@@ -216,14 +217,16 @@ public class ItemSystem extends Panel implements ActionListener{
 		}
 	}
 	
+	Panel centerPanel;//상품 정보
+	ImageSystem imageSystem;//상품 이미지
+	
 	public ItemSystem(TotalSystem total) {
 //		super(title);
 
 		this.total = total;
 		
-		this.setLayout(new GridLayout(8,1));
-		
-		font = new Font("굴림체",Font.BOLD, 20);
+//		this.setLayout(new GridLayout(8,1));
+		this.setLayout(new BorderLayout());
 		
 		makeRadioButton();
 		makeLabel();
@@ -242,9 +245,24 @@ public class ItemSystem extends Panel implements ActionListener{
 		panel[6].add(btn[0]);panel[6].add(btn[1]);panel[6].add(btn[2]);panel[6].add(btn[3]);panel[6].add(btn[4]);
 		panel[7].add(new Label());
 		
-		for(int i = 0; i < 8; i++) {
-			this.add(panel[i]);
-		}
+		centerPanel = new Panel();
+		centerPanel.setLayout(new GridLayout(7,1));
+		
+		centerPanel.add(panel[0]);
+		centerPanel.add(panel[1]);
+		centerPanel.add(panel[2]);
+		centerPanel.add(panel[3]);
+		centerPanel.add(panel[4]);
+		centerPanel.add(panel[5]);
+		centerPanel.add(panel[7]);
+		
+		imageSystem = new ImageSystem(total);
+		
+		font = new Font("굴림체",Font.BOLD, 20);
+
+		this.add("Center",centerPanel);
+		this.add("East",imageSystem);
+		this.add("South",panel[6]);
 		
 //		this.addWindowListener(new LoginSystemExit());
 		

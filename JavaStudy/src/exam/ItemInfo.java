@@ -6,6 +6,13 @@ public class ItemInfo {//모델객체
 	private int price;
 	private String info;
 	private String origin;
+	private String image;
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public String getCode() {
 		return code;
 	}

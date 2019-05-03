@@ -39,10 +39,11 @@ public class TotalSystem extends Frame implements ActionListener{
 	Panel itemInfo;
 	Panel empInfo;
 	Panel chart;
+	Panel image;
 	
 	MenuBar mb;
-	Menu menu_logout,menu_fruit,menu_drink,menu_item,menu_home,menu_emp,menu_chart;
-	MenuItem item_logout,item_fruit,item_drink,item_item,item_home,item_emp,item_chart;
+	Menu menu_logout,menu_fruit,menu_drink,menu_item,menu_home,menu_emp,menu_chart, menu_image;
+	MenuItem item_logout,item_fruit,item_drink,item_item,item_home,item_emp,item_chart, item_image;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -59,6 +60,7 @@ public class TotalSystem extends Frame implements ActionListener{
 			menu_home.setEnabled(false);
 			menu_emp.setEnabled(false);
 			menu_chart.setEnabled(false);
+			menu_image.setEnabled(false);
 		}else if(obj == item_fruit) {
 			this.card.show(total_panel, "fruit");
 		}else if(obj == item_drink) {
@@ -71,6 +73,8 @@ public class TotalSystem extends Frame implements ActionListener{
 			this.card.show(total_panel,"emp");
 		}else if(obj == item_chart){
 			this.card.show(total_panel,"chart");
+		}else if(obj == item_image) {
+			this.card.show(total_panel, "image");
 		}
 	}
 
@@ -110,6 +114,9 @@ public class TotalSystem extends Frame implements ActionListener{
 		menu_chart = new Menu("매출관리");
 		menu_chart.setFont(menuFont);
 		
+		menu_image = new Menu("이미지");
+		menu_image.setFont(menuFont);
+		
 		item_logout = new MenuItem("로그아웃");
 		item_logout.setFont(menuFont);
 		item_logout.addActionListener(this);
@@ -138,6 +145,10 @@ public class TotalSystem extends Frame implements ActionListener{
 		item_chart.setFont(menuFont);
 		item_chart.addActionListener(this);
 		
+		item_image = new MenuItem("이미지");
+		item_image.setFont(menuFont);
+		item_image.addActionListener(this);
+		
 		menu_logout.setEnabled(false);//비활성화, 로그인 전이므로.
 		menu_logout.add(item_logout);
 		
@@ -159,6 +170,9 @@ public class TotalSystem extends Frame implements ActionListener{
 		menu_chart.setEnabled(false);
 		menu_chart.add(item_chart);
 		
+		menu_image.setEnabled(false);
+		menu_image.add(item_image);
+		
 		mb.add(menu_logout);
 		mb.add(menu_fruit);
 		mb.add(menu_drink);
@@ -166,6 +180,7 @@ public class TotalSystem extends Frame implements ActionListener{
 		mb.add(menu_home);
 		mb.add(menu_emp);
 		mb.add(menu_chart);
+		mb.add(menu_image);
 		
 		this.setMenuBar(mb);
 		
@@ -179,6 +194,8 @@ public class TotalSystem extends Frame implements ActionListener{
 		
 		chart = new BarChartSystem(); 
 		
+		image = new ImageSystem(this);
+		
 		total_panel.add(login_system,"login");
 		total_panel.add(fruit_shopping,"fruit");
 		total_panel.add(backgroundImage,"background");
@@ -186,6 +203,7 @@ public class TotalSystem extends Frame implements ActionListener{
 		total_panel.add(itemInfo,"item");
 		total_panel.add(empInfo,"emp");
 		total_panel.add(chart,"chart");
+		total_panel.add(image,"image");
 		
 		this.add("Center",total_panel);
 		

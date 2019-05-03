@@ -8,7 +8,7 @@
 	</select>
 	<!--parameterType : 조건 대상자를 불러올 객체, resultType : 쿼리문이 실행 된 결과를 받을 객체-->
 	<insert id="insertIntoItemInfo" parameterType="exam.ItemInfo">
-		insert into item_info values (#{code},#{name},#{price},#{info},#{origin})
+		insert into item_info values (#{code},#{name},#{price},#{info},#{origin},#{image})
 	</insert>
 	<select id="SelectItemCode" parameterType="String" resultType = "exam.ItemInfo">
 		select * from item_info where code = #{code}
@@ -36,4 +36,16 @@
 	<select id="selectOutputs" resultType="exam.Outputs">
 		select * from outputs
 	</select>
+	<insert id="insertIntoCusInfo" parameterType="exam.Customer_info">
+		insert into customer_info values(#{id},#{name},#{addr},#{join_date})
+	</insert>
+	<select id="SelectCusId" parameterType = "String" resultType="exam.Customer_info">
+		select * from customer_info where id = #{id}
+	</select>
+	<delete id="deleteCusInfo" parameterType = "String">
+		delete from customer_info where id = #{id}
+	</delete>
+	<update id="updateCusInfo" parameterType="exam.Customer_info">
+		update customer_info set name = #{name}, addr = #{addr}, join_date = #{join_date} where id = #{id}
+	</update>
 </mapper>

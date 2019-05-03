@@ -44,17 +44,19 @@ class LoadActionListener implements ActionListener{//이미지 로드 버튼을 
 	
 	ImageSystem is; ImagePanel ip;
 	FileDialog fileDialog;//파일 다이얼로그 호출
+	TotalSystem ts;
 	
 	static String fileName;
 	
 	static BufferedInputStream bis;
-	LoadActionListener(ImageSystem is, ImagePanel ip){
+	LoadActionListener(ImageSystem is, ImagePanel ip, TotalSystem ts){
 		this.is = is;
 		this.ip = ip;
+		this.ts = ts;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		fileDialog = new FileDialog(is,"이미지 파일 열기",FileDialog.LOAD);
+		fileDialog = new FileDialog(ts,"이미지 파일 열기",FileDialog.LOAD);
 		//파일다이얼로그가 동작되는 윈도우/다이얼로그 이름/다이얼로그 역할(LOAD=파일 불러오기)
 		fileDialog.setVisible(true);
 		fileName = fileDialog.getFile();
@@ -77,6 +79,7 @@ class SaveActionListener implements ActionListener{//이미지 저장 버튼을 
 	FileDialog fileDialog;
 	ImageSystem is;
 	BufferedOutputStream bos;//파일처리에 사용하는 객체
+	TotalSystem ts;
 	
 	//BufferedOutputStream 이란? -> 자바 세상에는 객체(클래스)만 존재, 파일도 객체, A파일과 B파일이 있다고 가정하고,
 	//A파일을 B파일에 저장하는 처리과정(stream) 또한 객체(클래스)가 됨,
@@ -87,16 +90,19 @@ class SaveActionListener implements ActionListener{//이미지 저장 버튼을 
 	//Buffered란, 위의 Stream기능(메서드) + 알파를 가지고 있는 객체.(전용 메모리 = 버퍼) 
 	//--> 파일 처리를 하는 데에 전용의 메모리를 사용해서 효율적으로 파일 처리를 함.(확장클래스)
 	
-	SaveActionListener(ImageSystem is){
+	SaveActionListener(ImageSystem is, TotalSystem ts){
 		this.is = is;
+		this.ts = ts;
 	}
+	
+	static String path;
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		fileDialog = new FileDialog(is,"이미지 파일 저장",FileDialog.SAVE);
+		fileDialog = new FileDialog(ts,"이미지 파일 저장",FileDialog.SAVE);
 		//파일다이얼로그가 동작되는 윈도우/다이얼로그 이름/다이얼로그 역할(SAVE=파일 저장하기)
 		fileDialog.setFile(LoadActionListener.fileName);//static변수로 선언했기 때문에 클래스이름.변수이름
 		fileDialog.setVisible(true);
-		String path = fileDialog.getDirectory()+fileDialog.getFile();
+		path = fileDialog.getDirectory()+fileDialog.getFile();
 		is.text.setText(path);
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(path));
@@ -117,24 +123,26 @@ class SaveActionListener implements ActionListener{//이미지 저장 버튼을 
 	
 }
 
-public class ImageSystem extends Frame {
+public class ImageSystem extends Panel {
 	
 	Button load,save;
 	TextField text;
 	Panel southPanel;//버튼을 넣을 패널
 	ImagePanel imagePanel;//이미지 패널
 	
-	public ImageSystem(String str) {
-		super(str);
+	TotalSystem ts;
+	
+	public ImageSystem(TotalSystem ts) {
+//		super(str);
 		this.setLayout(new BorderLayout());
-		
+
 		imagePanel = new ImagePanel();
 		
 		load = new Button("이미지 로드");
-		load.addActionListener(new LoadActionListener(this, imagePanel));
+		load.addActionListener(new LoadActionListener(this, imagePanel, ts));
 		
 		save = new Button("이미지 저장");
-		save.addActionListener(new SaveActionListener(this));
+		save.addActionListener(new SaveActionListener(this, ts));
 		
 		text = new TextField(40);
 		
@@ -147,12 +155,12 @@ public class ImageSystem extends Frame {
 		this.add("South",southPanel);
 		this.add("Center",imagePanel);
 		
-		this.addWindowListener(new LoginSystemExit());
-		this.setSize(600,400);
-		this.setVisible(true);
+//		this.addWindowListener(new LoginSystemExit());
+//		this.setSize(600,400);
+//		this.setVisible(true);
 	}
-	public static void main(String[] args) {
-		new ImageSystem("이미지 시스템");
-	}
+//	public static void main(String[] args) {
+//		new ImageSystem("이미지 시스템");
+//	}
 
 }

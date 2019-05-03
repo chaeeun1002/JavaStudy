@@ -171,4 +171,59 @@ public class CRUDprocess {
 			s.close();
 		}
 	}
+	public Integer insertIntoCusInfo(Customer_info info) {
+		SqlSession s = getSession();
+		int result = 0;
+		try {
+			result = s.insert("loginmapper.insertIntoCusInfo",info);
+			if(result > 0) {
+				s.commit();
+			}else {
+				s.rollback();
+			}
+			return result;
+		}finally{
+			s.close();
+		}
+	}
+	public Customer_info SelectCusId(String id) {
+		SqlSession s = getSession();
+		Customer_info info;
+		try {
+			info = s.selectOne("loginmapper.SelectCusId",id);
+			return info;
+		}finally {
+			s.close();
+		}
+	}
+	public Integer deleteCusInfo(String id) {
+		SqlSession s = getSession();
+		int result = 0;
+		try {
+			result = s.delete("loginmapper.deleteCusInfo",id);
+			if(result > 0) {
+				s.commit();
+			}else {
+				s.rollback();
+			}
+			return result;
+		}finally {
+			s.close();
+		}
+	}
+	public Integer updateCusInfo(Customer_info info) {
+		SqlSession s = getSession();
+		int result = 0;
+		try {
+			result = s.update("loginmapper.updateCusInfo",info);
+			if(result > 0) {
+				s.commit();
+			}else {
+				s.rollback();
+			}
+			return result;
+		}finally {
+			s.close();
+		}
+	}
 }
