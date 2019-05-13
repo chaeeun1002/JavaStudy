@@ -87,7 +87,6 @@ public class TotalSystem extends Frame implements ActionListener{
 		login_system = new LoginSystem(this);
 		fruit_shopping = new FruitShopping(this);
 		
-		
 		menuFont = new Font("굴림체",Font.PLAIN,14);
 		
 		//메뉴관련 작업//
