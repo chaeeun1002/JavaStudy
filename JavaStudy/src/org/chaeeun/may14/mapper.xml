@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loginmapper">
+	<select id="SelectCusInfo" resultType="chaeeun.Customer_info">
+		select * from customer_info
+	</select>
+	<select id="SelectEmpInfo" resultType="chaeeun.EmpInfo">
+		select * from emp_info
+	</select>
+	<select id="SelectItemImfo" resultType = "chaeeun.ItemInfo">
+		select * from item_info
+	</select>
+	<select id="SelectItemInfoCondition" parameterType="HashMap" resultType="chaeeun.ItemInfo">
+		select * from item_info
+		<where>
+			<if test="code != null">and code = #{code}</if>
+			<if test="name != null">and name = #{name}</if>
+			<if test="price != null">and price = #{price}</if>
+			<if test="origin != null">and origin = #{origin}</if>
+		</where>
+	</select>
+	<delete id="DeleteItemInfoCondition" parameterType="HashMap">
+		delete from item_info
+		<where>
+			<if test="code != null">and code = #{code}</if>
+			<if test="name != null">and name = #{name}</if>
+			<if test="price != null">and price = #{price}</if>
+			<if test="origin != null">and origin = #{origin}</if>
+		</where>
+	</delete>
+</mapper>
