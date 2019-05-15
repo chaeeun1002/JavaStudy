@@ -1,4 +1,4 @@
-package chaeeun;
+package org.chaeeun.may08;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package chaeeun;
+package org.chaeeun.may08;
 
 //DB연동에 사용하는 변수는 은닉필수(private)
 

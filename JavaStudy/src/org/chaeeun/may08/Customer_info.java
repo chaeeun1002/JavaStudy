@@ -1,4 +1,4 @@
-package chaeeun;
+package org.chaeeun.may08;
 
 public class Customer_info {
 	private String id;

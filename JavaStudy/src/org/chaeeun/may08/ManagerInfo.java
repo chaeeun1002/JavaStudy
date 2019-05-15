@@ -1,4 +1,4 @@
-package chaeeun;
+package org.chaeeun.may08;
 
 public class ManagerInfo {
 	//변수이름은 테이블의 속성명과 일치해야함.
